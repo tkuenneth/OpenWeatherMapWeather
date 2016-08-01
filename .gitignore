@@ -2,3 +2,5 @@
 **/api_key.java
 **/target
 **/build
+**/private
+**/.nb-gradle

@@ -1,0 +1,50 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.javafxports:jfxmobile-plugin:1.0.8'
+    }
+}
+
+apply plugin: 'org.javafxports.jfxmobile'
+
+repositories {
+    jcenter()
+    maven {
+        url 'http://nexus.gluonhq.com/nexus/content/repositories/releases'
+    }
+}
+
+mainClassName = 'com.thomaskuenneth.openweathermapweather.OpenWeatherMapWeather'
+
+dependencies {
+    compile 'com.gluonhq:charm:3.0.0'
+    
+    // https://mvnrepository.com/artifact/org.json/json
+    compile group: 'org.json', name: 'json', version: '20160212'
+
+    androidRuntime 'com.gluonhq:charm-android:3.0.0'
+    iosRuntime 'com.gluonhq:charm-ios:3.0.0'
+    desktopRuntime 'com.gluonhq:charm-desktop:3.0.0'
+}
+
+jfxmobile {
+    apply plugin: 'idea'
+    idea.module.downloadJavadoc = true
+
+    android {
+        manifest = 'src/android/AndroidManifest.xml'
+    }
+    ios {
+        infoPList = file('src/ios/Default-Info.plist')
+        forceLinkClasses = [
+                'com.gluonhq.**.*',
+                'io.datafx.**.*',
+                'javax.annotations.**.*',
+                'javax.inject.**.*',
+                'javax.json.**.*',
+                'org.glassfish.json.**.*'
+        ]
+    }
+}
